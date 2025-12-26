@@ -15,6 +15,7 @@ Help Page
 Type pxctl at the prompt to see the help page:
 
 Offline PXCTL Help
+```
 Volume Commands:
   pxctl volume list | pxctl v l           Show summary of all volumes
   pxctl volume list -j | pxctl v l -j    Show full JSON of all volumes
@@ -46,3 +47,4 @@ System Commands (offline):
 Other:
   Press Enter to continue (no action)
   exit, quit   Exit the simulator
+```
