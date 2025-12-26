@@ -6,7 +6,7 @@ This Python script simulates pxctl commands offline by reading pre-captured diag
 Python 3.x
 
 # Usage
-./pxctl_offline.py <diag.tar.gz>
+./px-diag-analyzer.py <diag.tar.gz>
 
 Once inside the interactive prompt:
 pxctl>
@@ -48,3 +48,4 @@ Other:
   Press Enter to continue (no action)
   exit, quit   Exit the simulator
 ```
+
