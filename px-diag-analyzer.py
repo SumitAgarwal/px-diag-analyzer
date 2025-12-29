@@ -241,10 +241,8 @@ def main():
                 v = next((v for v in vols if v["id"] == vol_id), None)
                 if not v:
                     print(f"Volume {vol_id} not found")
-                elif is_json:
-                    print(json.dumps(v, indent=2))
                 else:
-                    volume_inspect(v)
+                    print(json.dumps(v, indent=2))
                 continue
 
             if base_cmd in ("pxctl config show", "pxctl config s"):
