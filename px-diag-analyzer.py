@@ -126,16 +126,9 @@ def human_size(b):
         b //= 1024
 
 def yes_no(value):
-    """Convert truthy / falsy values to pxctl-style yes/no."""
     return "yes" if value else "no"
 
 def format_shared(spec):
-    """
-    Determine shared volume type for display.
-    - sharedv4 → 'v4'
-    - shared → 'yes'
-    - else → 'no'
-    """
     if spec.get("sharedv4"):
         return "v4"
     elif spec.get("shared"):
