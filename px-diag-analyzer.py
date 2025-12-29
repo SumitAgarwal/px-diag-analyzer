@@ -125,15 +125,54 @@ def human_size(b):
             return f"{b} {u}"
         b //= 1024
 
+def yes_no(value):
+    """Convert truthy / falsy values to pxctl-style yes/no."""
+    return "yes" if value else "no"
+
+def format_shared(spec):
+    """
+    Determine shared volume type for display.
+    - sharedv4 → 'v4'
+    - shared → 'yes'
+    - else → 'no'
+    """
+    if spec.get("sharedv4"):
+        return "v4"
+    elif spec.get("shared"):
+        return "yes"
+    else:
+        return "no"
+
 def volume_list(misc):
     vols = load_volumes(misc)
-    print("ID                      NAME                                    SIZE    HA  SHARED ENCRYPTED PROXY-VOLUME IO_PRIORITY STATUS")
+
+    print(
+        "ID                      NAME                                    "
+        "SIZE    HA  SHARED ENCRYPTED PROXY-VOLUME IO_PRIORITY STATUS"
+    )
+
     for v in vols:
-        state = "attached on " + v["attached_on"] if v["attached_on"] else "detached"
-        print(f'{v["id"]:23} {v["locator"].get("name",""):40} '
-              f'{human_size(v["spec"]["size"]):7} {v["spec"]["ha_level"]:3} '
-              f'no     no        no            {v["spec"].get("cos","").upper():8} '
-              f'{v["status"]} - {state}')
+        state = (
+            "attached on " + v["attached_on"]
+            if v["attached_on"]
+            else "detached"
+        )
+
+        shared = format_shared(v["spec"])
+        encrypted = yes_no(v["spec"].get("encrypted", False))
+        proxy = yes_no(v["spec"].get("proxy_volume", False))
+
+        print(
+            f'{v["id"]:23} '
+            f'{v["locator"].get("name",""):40} '
+            f'{human_size(v["spec"]["size"]):7} '
+            f'{v["spec"]["ha_level"]:3} '
+            f'{shared:7} '
+            f'{encrypted:9} '
+            f'{proxy:12} '
+            f'{v["spec"].get("cos","").upper():8} '
+            f'{v["status"]} - {state}'
+        )
 
 def volume_inspect(v):
     print(f'Volume                   :  {v["id"]}')
@@ -143,7 +182,7 @@ def volume_inspect(v):
     print(f'HA                       :  {v["spec"]["ha_level"]}')
     print(f'IO Priority              :  {v["spec"].get("cos","")}')
     print(f'Creation time            :  {v.get("ctime","")}')
-    print(f'Shared                   :  {"yes" if v["spec"].get("shared") else "no"}')
+    print(f'Shared                   :  {format_shared(v["spec"])}')
     print(f'Status                   :  {v["status"]}')
     print(f'State                    :  {"attached: " + v["attached_on"] if v["attached_on"] else "detached"}')
     print(f'Last Attached            :  {v.get("detach_time","")}')
