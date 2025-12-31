@@ -53,15 +53,15 @@ Cluster / system:
   pxctl clusteruuid show | pxctl clusteruuid s
 
 Host commands:
-  journalctl
+  journalctl (avoid using this for now as it leads to OOM issues)
   lsblk
   blkid
   ip addr show
   mount
   uptime
   date
-  top -p
-  top -m
+  top -p (-p is for processes)
+  top -m (-m is for memory)
 
 Notes:
   - '-j' may appear anywhere in the command
