@@ -25,6 +25,9 @@ COMMAND_MAP = {
     "pxctl a s -j": ("misc", "px-alerts-show.out"),
     "pxctl clouddrive list": ("misc", "px-clouddrive-list.out"),
     "pxctl cd l": ("misc", "px-clouddrive-list.out"),
+    "pxctl bootstrap show": ("misc", "px-bootstrap-list.out"),
+    "top -p": ("misc", "top-processes.out"),
+    "top -m": ("misc", "top-mem.out")
 }
 
 def print_help():
@@ -45,6 +48,7 @@ Cluster / system:
   pxctl alerts show
   pxctl alerts show -j
   pxctl clouddrive list
+  pxctl bootstrap show
   pxctl config show | pxctl config s
   pxctl clusteruuid show | pxctl clusteruuid s
 
@@ -56,6 +60,8 @@ Host commands:
   mount
   uptime
   date
+  top -p
+  top -m
 
 Notes:
   - '-j' may appear anywhere in the command
